@@ -11,7 +11,8 @@ TODO
 Usage
 -----
 
-TODO
+`$ ./bin/console class-author-stat <projectDir> <developerEmail>` - counts classes/interfaces/trait
+created by some developer in project.
 
 Code style fixer
 ----------------
