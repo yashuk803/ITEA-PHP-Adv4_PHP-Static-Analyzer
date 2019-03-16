@@ -1,12 +1,17 @@
 {
   "name": "greeflas/php-static-analyzer",
   "description": "",
-  "type": "project",
+  "type": "Library Analyzer",
   "license": "BSD-3-Clause",
   "authors": [
     {
       "name": "Vladimir Kuprienko",
       "email": "vldmr.kuprienko@gmail.com"
+    },
+    {
+      "name": "Mariia Tarantsova",
+      "email": "yashuk803@gmail.com",
+      "role": "Developer"
     }
   ],
   "minimum-stability": "stable",
