@@ -8,10 +8,9 @@
 
 namespace Greeflas\StaticAnalyzer;
 
-class GenerateClassSignature extends AbstractGenerateClassSignature
+class GenerationClassSignature extends AbstractGenerationClassSignature
 {
 
-    private $reflecation;
 
     public function __construct(string $fullClassName)
     {
@@ -20,7 +19,7 @@ class GenerateClassSignature extends AbstractGenerateClassSignature
 
     public function getNameClass(): string
     {
-        return $this->reflecation->getName();
+        return $this->reflecation->getShortName();
     }
 
     public function getTypeClass(): string
@@ -35,13 +34,13 @@ class GenerateClassSignature extends AbstractGenerateClassSignature
         return $type;
     }
 
-    public function getClassProperties(string $types='private'): int
+    public function getClassProperties(string $types='private', bool $static = false): int
     {
-      return  $this->getCountParam($this->reflecation->getProperties(), $types);
+      return  $this->getCountParam($this->reflecation->getProperties(), $types, $static);
     }
 
-    public function getMethods(string $types='private'): int
+    public function getClassMethods(string $types='private', bool $static = false): int
     {
-        return  $this->getCountParam($this->reflecation->getMethods(), $types);
+        return  $this->getCountParam($this->reflecation->getMethods(), $types, $static);
     }
 }
