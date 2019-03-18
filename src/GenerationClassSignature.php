@@ -15,8 +15,17 @@ namespace Greeflas\StaticAnalyzer;
  *
  * @author Tarantsova Mariia <yashuk803@gmail.com>
  */
-class GenerationClassSignature extends AbstractGenerationClassSignature
+class GenerationClassSignature
 {
+    private const TYPE_PUBLIC    = 'public';
+    private const TYPE_PRIVATE   = 'private';
+    private const TYPE_PROTECTED = 'protected';
+
+    /**
+     * @var \ReflectionClass
+     */
+    private $reflection;
+
     /**
      * GenerationClassSignature constructor.
      *
@@ -26,7 +35,7 @@ class GenerationClassSignature extends AbstractGenerationClassSignature
      */
     public function __construct(string $fullClassName)
     {
-        $this->reflecation = new \ReflectionClass($fullClassName);
+        $this->reflection = new \ReflectionClass($fullClassName);
     }
 
     /**
@@ -36,7 +45,7 @@ class GenerationClassSignature extends AbstractGenerationClassSignature
      */
     public function getNameClass(): string
     {
-        return $this->reflecation->getShortName();
+        return $this->reflection->getShortName();
     }
 
     /**
@@ -46,9 +55,9 @@ class GenerationClassSignature extends AbstractGenerationClassSignature
      */
     public function getTypeClass(): string
     {
-        if ($this->reflecation->isAbstract()) {
+        if ($this->reflection->isAbstract()) {
             $type = 'Abstract';
-        } elseif ($this->reflecation->isFinal()) {
+        } elseif ($this->reflection->isFinal()) {
             $type = 'Final';
         } else {
             $type = 'Default';
@@ -68,7 +77,7 @@ class GenerationClassSignature extends AbstractGenerationClassSignature
      */
     public function getClassProperties(string $types='private', bool $static = false): int
     {
-        return  $this->getCountParam($this->reflecation->getProperties(), $types, $static);
+        return  $this->getCountParam($this->reflection->getProperties(), $types, $static);
     }
 
     /**
@@ -82,6 +91,45 @@ class GenerationClassSignature extends AbstractGenerationClassSignature
      */
     public function getClassMethods(string $types='private', bool $static = false): int
     {
-        return  $this->getCountParam($this->reflecation->getMethods(), $types, $static);
+        return  $this->getCountParam($this->reflection->getMethods(), $types, $static);
+    }
+
+    /**
+     * This method return count properties or methods analyzed classes
+     *
+     * @param array $array this may be array properties or methods analyzed classes
+     * @param string $types type properties or methods (public, protected, private)
+     * @param bool $static if need get count properties or methods with modification static
+     *
+     * @return int
+     */
+    private function getCountParam(array $array, string $types, bool $static = false): int
+    {
+        $countParam = 0;
+
+        foreach ($array as $element) {
+            if ($element->isPublic() && (false !== \stripos($types, self::TYPE_PUBLIC)) && !$static) {
+                $countParam++;
+            } elseif ($element->isPrivate() && (false !== \stripos($types, self::TYPE_PRIVATE)) && !$static) {
+                $countParam++;
+            } elseif ($element->isProtected() && (false !== \stripos($types, self::TYPE_PROTECTED)) && !$static) {
+                $countParam++;
+            } elseif ($element->isStatic() && $element->isPublic() && (false !== \stripos($types, self::TYPE_PUBLIC)) && $static) {
+                $countParam++;
+            } elseif ($element->isStatic() && $element->isPrivate() && (false !== \stripos($types, self::TYPE_PRIVATE)) && $static) {
+                $countParam++;
+            } elseif ($element->isStatic() && $element->isProtected() && (false !== \stripos($types, self::TYPE_PROTECTED)) && $static) {
+                $countParam++;
+            }
+        }
+
+        //Ths RECURSION need when need to know count prop or method parent classes
+        if ($parentClass = $this->reflection->getParentClass()) {
+            $ref = new \ReflectionClass($parentClass->getName());
+
+            $this->getCountParam($ref->getProperties(), $types);
+        }
+
+        return $countParam;
     }
 }
