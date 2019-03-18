@@ -1,7 +1,7 @@
 {
   "name": "greeflas/php-static-analyzer",
   "description": "",
-  "type": "Library Analyzer",
+  "type": "project",
   "license": "BSD-3-Clause",
   "authors": [
     {
