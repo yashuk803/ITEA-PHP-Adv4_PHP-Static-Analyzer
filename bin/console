@@ -3,13 +3,13 @@
 
 use Greeflas\StaticAnalyzer\Command\ClassAuthorStat;
 use Symfony\Component\Console\Application;
-use \Greeflas\StaticAnalyzer\Command\ClassSignatureStat;
+use \Greeflas\StaticAnalyzer\Command\ClassSignatureStatCommand;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $application = new Application('PHP Static Analyzer', '1.0.0');
 
-$application->add(new ClassSignatureStat());
+$application->add(new ClassSignatureStatCommand());
 
 $application->add(new ClassAuthorStat());
 
