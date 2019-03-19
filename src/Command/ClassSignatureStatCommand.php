@@ -119,7 +119,7 @@ class ClassSignatureStatCommand extends Command
      *
      * @return int
      */
-    public function getCountMethodClass(string $type, bool $static = false): int
+    private function getCountMethodClass(string $type, bool $static = false): int
     {
         return $this->signature->getClassMethods($type, $static);
     }
