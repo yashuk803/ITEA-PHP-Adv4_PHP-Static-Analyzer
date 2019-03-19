@@ -18,8 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Greeflas\StaticAnalyzer\GenerationClassSignature;
 
 /**
- * Users call a console command by analyzed classes signature.
- *
  * @author Mariia Tarantsova <yashuk803@gmail.com>
  */
 class ClassSignatureStatCommand extends Command
