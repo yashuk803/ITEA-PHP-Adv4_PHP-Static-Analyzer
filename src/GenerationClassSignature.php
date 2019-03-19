@@ -51,7 +51,7 @@ class GenerationClassSignature
     }
 
     /**
-     *  Returns type of class (e.g. default, final or abstract).
+     * Returns type of class (e.g. default, final or abstract).
      *
      * @return string
      */
