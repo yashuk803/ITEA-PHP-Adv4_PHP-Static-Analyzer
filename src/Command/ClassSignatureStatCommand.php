@@ -14,15 +14,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Greeflas\StaticAnalyzer\GenerationClassSignature;
 
 /**
- * A console class consists of one or configure and command execute.
  * Users call a console command by analyzed classes signature.
- *
- * How create command:
  *
  * @author Mariia Tarantsova <yashuk803@gmail.com>
  */
 class ClassSignatureStatCommand extends Command
 {
+
+    private const TYPE_PUBLIC    = 'public';
+    private const TYPE_PRIVATE   = 'private';
+    private const TYPE_PROTECTED = 'protected';
+
     /**
      * @var GenerationClassSignature
      */
@@ -56,8 +58,8 @@ class ClassSignatureStatCommand extends Command
     }
 
     /**
-     * This method buildOutput information about Signature classes
-     *if class doesn't exists return Message ReflectionException
+     * This method builds output information about signature of needed class.
+     * If class doesn't exists return Message ReflectionException.
      *
      * @param string $fullClassName
      *
@@ -72,22 +74,12 @@ class ClassSignatureStatCommand extends Command
 
             return $this->buildOutput();
         } catch (\ReflectionException $e) {
-            return $e->getMessage();
+            return "Class $fullClassName does not exist";
         }
     }
 
     /**
-     * Return name classes, which analyzed
-     *
-     * @return string
-     */
-    private function getNameClass(): string
-    {
-        return $this->signature->getNameClass();
-    }
-
-    /**
-     * Return type classes (default, final, abstract)
+     * Returns type of class (e.g. default, final or abstract).
      *
      * @return string
      */
@@ -97,11 +89,11 @@ class ClassSignatureStatCommand extends Command
     }
 
     /**
-     * Return count properties analyzed classes
+     * Return count properties analyzed classes.
      *
-     * @param string $type this param may be public, private, protected
+     * @param string $type this param may be public, private, protected.
      * @param bool $staic when need count properties public static
-     * or protected static
+     * or protected static.
      *
      * @return int
      */
@@ -111,11 +103,11 @@ class ClassSignatureStatCommand extends Command
     }
 
     /**
-     *  Return count methods analyzed classes
+     *  Return count methods analyzed classes.
      *
-     * @param string $type this param may be public, private, protected
+     * @param string $type this param may be public, private, protected.
      * @param bool $staic when need count methods public static
-     * or private static
+     * or private static.
      *
      * @return int
      */
@@ -125,45 +117,45 @@ class ClassSignatureStatCommand extends Command
     }
 
     /**
-     * buildOutput info about signature classes
+     * This method builds output information about signature of needed class.
      *
      * @return string
      */
     private function buildOutput(): string
     {
         $output = '';
-        $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $this->getNameClass(), $this->getTypeClass());
+        $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $this->getClassName(), $this->getTypeClass());
 
         $output .= \sprintf('Properties:' . \PHP_EOL);
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass('public'),
-            $this->getCountPropClass('public', true)
+            $this->getCountPropClass(self::TYPE_PUBLIC),
+            $this->getCountPropClass(self::TYPE_PUBLIC, true)
         );
 
         $output .= \sprintf(
             "\t" . 'protected: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass('protected'),
-            $this->getCountPropClass('protected', true)
+            $this->getCountPropClass(self::TYPE_PROTECTED),
+            $this->getCountPropClass(self::TYPE_PROTECTED, true)
         );
 
-        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass('private'));
+        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass(self::TYPE_PRIVATE));
 
         $output .= \sprintf('Methods:') . \PHP_EOL;
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass('public'),
-            $this->getCountMethodClass('public', true)
+            $this->getCountMethodClass(self::TYPE_PUBLIC),
+            $this->getCountMethodClass(self::TYPE_PUBLIC, true)
         );
 
-        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass('protected'));
+        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass(self::TYPE_PROTECTED));
 
         $output .= \sprintf(
             "\t" . 'private: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass('private'),
-            $this->getCountMethodClass('private', true)
+            $this->getCountMethodClass(self::TYPE_PRIVATE),
+            $this->getCountMethodClass(self::TYPE_PRIVATE, true)
         );
 
         return $output;
