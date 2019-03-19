@@ -51,13 +51,13 @@ class ClassSignatureStatCommand extends Command
     {
         $fullClassName = $input->getArgument('fullClassName');
 
-        $print = $this->getSignature($fullClassName);
+        $buildOutput = $this->getSignature($fullClassName);
 
-        $output->writeln($print);
+        $output->writeln($buildOutput);
     }
 
     /**
-     * This method print information about Signature classes
+     * This method buildOutput information about Signature classes
      *if class doesn't exists return Message ReflectionException
      *
      * @param string $fullClassName
@@ -66,12 +66,12 @@ class ClassSignatureStatCommand extends Command
      *
      * @return string
      */
-    public function getSignature(string $fullClassName): string
+    private function getSignature(string $fullClassName): string
     {
         try {
             $this->signature = new GenerationClassSignature($fullClassName);
 
-            return $this->printSignatureClass();
+            return $this->buildOutput();
         } catch (\ReflectionException $e) {
             return $e->getMessage();
         }
@@ -82,7 +82,7 @@ class ClassSignatureStatCommand extends Command
      *
      * @return string
      */
-    public function getNameClass(): string
+    private function getNameClass(): string
     {
         return $this->signature->getNameClass();
     }
@@ -92,7 +92,7 @@ class ClassSignatureStatCommand extends Command
      *
      * @return string
      */
-    public function getTypeClass(): string
+    private function getTypeClass(): string
     {
         return $this->signature->getTypeClass();
     }
@@ -106,7 +106,7 @@ class ClassSignatureStatCommand extends Command
      *
      * @return int
      */
-    public function getCountPropClass(string $type, bool $static = false): int
+    private function getCountPropClass(string $type, bool $static = false): int
     {
         return $this->signature->getClassProperties($type, $static);
     }
@@ -126,11 +126,11 @@ class ClassSignatureStatCommand extends Command
     }
 
     /**
-     * Print info about signature classes
+     * buildOutput info about signature classes
      *
      * @return string
      */
-    private function printSignatureClass(): string
+    private function buildOutput(): string
     {
         $output = '';
         $output .= \sprintf('Class: %s is %s' . \PHP_EOL, $this->getNameClass(), $this->getTypeClass());
