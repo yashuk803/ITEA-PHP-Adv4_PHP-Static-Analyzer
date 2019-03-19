@@ -19,12 +19,12 @@ namespace Greeflas\StaticAnalyzer;
  */
 class GenerationClassSignature
 {
-    private const TYPE_PUBLIC    = 'public';
-    private const TYPE_PRIVATE   = 'private';
-    private const TYPE_PROTECTED = 'protected';
-    private const TYPE_ABSTRACT  = 'Abstract';
-    private const TYPE_FINAL     = 'Final';
-    private const TYPE_DEFAULT   = 'Default';
+    public const TYPE_PUBLIC    = 'public';
+    public const TYPE_PRIVATE   = 'private';
+    public const TYPE_PROTECTED = 'protected';
+    public const TYPE_ABSTRACT  = 'Abstract';
+    public const TYPE_FINAL     = 'Final';
+    public const TYPE_DEFAULT   = 'Default';
 
     /**
      * @var \ReflectionClass
@@ -32,11 +32,11 @@ class GenerationClassSignature
     private $reflection;
 
     /**
-     * GenerationClassSignature Constructor.
+     * Constructor
      *
      * @param string $fullClassName
      *
-     * @throws \ReflectionException
+     * @throws \ReflectionException when classes doesn't exist.
      */
     public function __construct(string $fullClassName)
     {

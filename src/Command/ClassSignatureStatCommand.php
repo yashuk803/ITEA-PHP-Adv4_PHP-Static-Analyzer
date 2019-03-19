@@ -22,10 +22,6 @@ use Greeflas\StaticAnalyzer\GenerationClassSignature;
  */
 class ClassSignatureStatCommand extends Command
 {
-    private const TYPE_PUBLIC    = 'public';
-    private const TYPE_PRIVATE   = 'private';
-    private const TYPE_PROTECTED = 'protected';
-
     /**
      * @var GenerationClassSignature
      */
@@ -136,32 +132,32 @@ class ClassSignatureStatCommand extends Command
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass(self::TYPE_PUBLIC),
-            $this->getCountPropClass(self::TYPE_PUBLIC, true)
+            $this->getCountPropClass($this->signature::TYPE_PUBLIC),
+            $this->getCountPropClass($this->signature::TYPE_PUBLIC, true)
         );
 
         $output .= \sprintf(
             "\t" . 'protected: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass(self::TYPE_PROTECTED),
-            $this->getCountPropClass(self::TYPE_PROTECTED, true)
+            $this->getCountPropClass($this->signature::TYPE_PROTECTED),
+            $this->getCountPropClass($this->signature::TYPE_PROTECTED, true)
         );
 
-        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass(self::TYPE_PRIVATE));
+        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass($this->signature::TYPE_PRIVATE));
 
         $output .= \sprintf('Methods:') . \PHP_EOL;
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass(self::TYPE_PUBLIC),
-            $this->getCountMethodClass(self::TYPE_PUBLIC, true)
+            $this->getCountMethodClass($this->signature::TYPE_PUBLIC),
+            $this->getCountMethodClass($this->signature::TYPE_PUBLIC, true)
         );
 
-        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass(self::TYPE_PROTECTED));
+        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass($this->signature::TYPE_PROTECTED));
 
         $output .= \sprintf(
             "\t" . 'private: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass(self::TYPE_PRIVATE),
-            $this->getCountMethodClass(self::TYPE_PRIVATE, true)
+            $this->getCountMethodClass($this->signature::TYPE_PRIVATE),
+            $this->getCountMethodClass($this->signature::TYPE_PRIVATE, true)
         );
 
         return $output;
