@@ -14,7 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Greeflas\StaticAnalyzer\GenerationClassSignature;
 
 /**
- * ClassSignatureStatCommand is the console command classes extends Symfony\Component\Console\Command\Command.
  *
  * A console class consists of one or configure and command execute.
  * Users call a console command by analyzed classes signature.
