@@ -9,7 +9,6 @@
 namespace Greeflas\StaticAnalyzer;
 
 /**
- *
  * This class help generation information about analyzed classes
  *
  * @author Tarantsova Mariia <yashuk803@gmail.com>
