@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
  */
-class ClassAuthorStat extends Command
+class ClassAuthorStatCommand extends Command
 {
     protected function configure()
     {
