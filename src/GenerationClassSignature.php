@@ -9,7 +9,6 @@
 namespace Greeflas\StaticAnalyzer;
 
 /**
- * Class ctGenerationClassSignature
  *
  * This class help generation information about analyzed classes
  *
@@ -123,7 +122,7 @@ class GenerationClassSignature
             }
         }
 
-        //Ths RECURSION need when need to know count prop or method parent classes
+        //This RECURSION need when need to know count prop or method parent classes
         if ($parentClass = $this->reflection->getParentClass()) {
             $ref = new \ReflectionClass($parentClass->getName());
 
