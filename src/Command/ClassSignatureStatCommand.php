@@ -78,6 +78,11 @@ class ClassSignatureStatCommand extends Command
         }
     }
 
+    private function getClassName(): string
+    {
+        return $this->signature->getClassName();
+    }
+
     /**
      * Returns type of class (e.g. default, final or abstract).
      *
