@@ -132,32 +132,32 @@ class ClassSignatureStatCommand extends Command
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass($this->signature::TYPE_PUBLIC),
-            $this->getCountPropClass($this->signature::TYPE_PUBLIC, true)
+            $this->getCountPropClass(GenerationClassSignature::TYPE_PUBLIC),
+            $this->getCountPropClass(GenerationClassSignature::TYPE_PUBLIC, true)
         );
 
         $output .= \sprintf(
             "\t" . 'protected: %d (%d static)' . \PHP_EOL,
-            $this->getCountPropClass($this->signature::TYPE_PROTECTED),
-            $this->getCountPropClass($this->signature::TYPE_PROTECTED, true)
+            $this->getCountPropClass(GenerationClassSignature::TYPE_PROTECTED),
+            $this->getCountPropClass(GenerationClassSignature::TYPE_PROTECTED, true)
         );
 
-        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass($this->signature::TYPE_PRIVATE));
+        $output .= \sprintf("\t" . 'private: %d ' . \PHP_EOL, $this->getCountPropClass(GenerationClassSignature::TYPE_PRIVATE));
 
         $output .= \sprintf('Methods:') . \PHP_EOL;
 
         $output .= \sprintf(
             "\t" . 'public: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass($this->signature::TYPE_PUBLIC),
-            $this->getCountMethodClass($this->signature::TYPE_PUBLIC, true)
+            $this->getCountMethodClass(GenerationClassSignature::TYPE_PUBLIC),
+            $this->getCountMethodClass(GenerationClassSignature::TYPE_PUBLIC, true)
         );
 
-        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass($this->signature::TYPE_PROTECTED));
+        $output .= \sprintf("\t" . 'protected: %d ' . \PHP_EOL, $this->getCountMethodClass(GenerationClassSignature::TYPE_PROTECTED));
 
         $output .= \sprintf(
             "\t" . 'private: %d (%d static)' . \PHP_EOL,
-            $this->getCountMethodClass($this->signature::TYPE_PRIVATE),
-            $this->getCountMethodClass($this->signature::TYPE_PRIVATE, true)
+            $this->getCountMethodClass(GenerationClassSignature::TYPE_PRIVATE),
+            $this->getCountMethodClass(GenerationClassSignature::TYPE_PRIVATE, true)
         );
 
         return $output;
